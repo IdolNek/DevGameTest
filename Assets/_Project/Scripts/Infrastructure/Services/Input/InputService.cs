@@ -1,0 +1,24 @@
+﻿using UnityEngine;
+
+namespace Assets.Scripts.Infrastructure.Services.Input
+{
+    public class InputService : IInputService
+    {
+        private const string Horizontal = "Horizontal";
+        private const string Vertical = "Vertical";
+
+        private Vector2 _axis;
+
+        public Vector2 Axis
+        {
+            get
+            {
+                _axis = UnityAxis();
+                return _axis;
+            }
+        }
+
+        private static Vector2 UnityAxis() =>
+            new Vector2(UnityEngine.Input.GetAxis(Horizontal), UnityEngine.Input.GetAxis(Vertical));
+    }
+}
