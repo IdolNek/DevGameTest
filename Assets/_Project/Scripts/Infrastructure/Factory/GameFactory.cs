@@ -4,6 +4,7 @@ using Assets.Scripts.Infrastructure.Services.Asset;
 using Assets.Scripts.Infrastructure.Services.Input;
 using Assets.Scripts.Infrastructure.Services.PlayerProgress;
 using Assets.Scripts.Infrastructure.Services.StaticData;
+using Assets.Scripts.Infrastructure.StateMachine;
 using Assets.Scripts.Infrastructure.UI.Factory;
 using Assets.Scripts.SpawnPool;
 using Assets.Scripts.UI.HUD;
@@ -20,6 +21,7 @@ namespace Assets.Scripts.Infrastructure.Factory
         private readonly IProgressService _progress;
         private readonly IInputService _inputService;
         private readonly IUIFactory _uIFactory;
+        private readonly GameStateMachine _gameStateMachine;
         private GameObject _player;
         private EnemySpawner _spawner;
 
@@ -27,20 +29,20 @@ namespace Assets.Scripts.Infrastructure.Factory
         public EnemySpawner Spawner => _spawner;
 
         public GameFactory(IAssetService asset, IStaticDataService staticData,
-            IProgressService progress, IInputService inputService, IUIFactory uIFactory)
+            IProgressService progress, IInputService inputService, IUIFactory uIFactory, GameStateMachine gameStateMachine)
         {
             _asset = asset;
             _staticData = staticData;
             _progress = progress;
             _inputService = inputService;
             _uIFactory = uIFactory;
+            _gameStateMachine = gameStateMachine;
         }
 
 
         public GameObject CreateHero(Vector3 at)
         {
             PlayerStaticData playerData = _staticData.PlayerConfig;
-            
             return _player;
         }
         public void ResetPlayer()
@@ -52,6 +54,8 @@ namespace Assets.Scripts.Infrastructure.Factory
         {
             GameObject hud = _asset.Instantiate(AssetPath.HUDPath);
             var hudPresenter = hud.GetComponent<HUDPresenter>();
+            hudPresenter.Construct(_progress, _gameStateMachine);
+            hudPresenter.Initialize();
             return hud;
         }
 

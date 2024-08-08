@@ -56,7 +56,7 @@ namespace _Project.Scripts.Infrastructure.StateMachine.State
             _allServices.RegisterSingle<IGameFactory>(new GameFactory(_allServices.Single<IAssetService>()
                 , _allServices.Single<IStaticDataService>(), _allServices.Single<IProgressService>()
                 , _allServices.Single<IInputService>()
-                , _allServices.Single<IUIFactory>()));
+                , _allServices.Single<IUIFactory>(), _stateMachine));
 
         private void RegisterUiFactory() =>
             _allServices.RegisterSingle<IUIFactory>(new UIFactory(_allServices.Single<IAssetService>()

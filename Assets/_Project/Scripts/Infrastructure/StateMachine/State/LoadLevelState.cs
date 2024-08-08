@@ -1,14 +1,12 @@
 ﻿using Assets.Scripts.CameraScripts;
 using Assets.Scripts.Infrastructure;
 using Assets.Scripts.Infrastructure.Factory;
-using Assets.Scripts.Infrastructure.GameOption.EnemyData;
 using Assets.Scripts.Infrastructure.GameOption.LevelData;
 using Assets.Scripts.Infrastructure.Services.PlayerProgress;
 using Assets.Scripts.Infrastructure.Services.StaticData;
 using Assets.Scripts.Infrastructure.StateMachine;
 using Assets.Scripts.Infrastructure.UI.Factory;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace _Project.Scripts.Infrastructure.StateMachine.State
 {
@@ -48,14 +46,8 @@ namespace _Project.Scripts.Infrastructure.StateMachine.State
             GameObject hero = _gameFactory.CreateHero(leveldata.StartPlayerPoint);
             _gameFactory.CreateHud();
             CameraFollow(hero);
-            InitializeEnemySpawner();
             _uiFactory.CreateUIRoot();
             _stateMachine.Enter<GameLoopState>();
-        }
-        private void InitializeEnemySpawner()
-        {
-            EnemySpawnStaticData enemySpawnerStaticData = _staticDataService.ForSpawn(EnemyTypeId.Enemy);
-            _gameFactory.CreateSpawner(enemySpawnerStaticData);
         }
 
         private static void CameraFollow(GameObject hero) => 

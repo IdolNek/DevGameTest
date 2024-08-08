@@ -10,17 +10,17 @@ namespace Assets.Scripts.CameraScripts
 
         private Transform _following;
 
-        private void LateUpdate()
-        {
-            if (_following == null)
-                return;
-
-            Quaternion rotation = Quaternion.Euler(_rotationAngleX, 0, 0);
-            Vector3 position = rotation * new Vector3(0, 0, -_distance) + FollowingPointPosition();
-
-            transform.rotation = rotation;
-            transform.position = position;
-        }
+        // private void LateUpdate()
+        // {
+        //     if (_following == null)
+        //         return;
+        //
+        //     Quaternion rotation = Quaternion.Euler(_rotationAngleX, 0, 0);
+        //     Vector3 position = rotation * new Vector3(0, 0, -_distance) + FollowingPointPosition();
+        //
+        //     transform.rotation = rotation;
+        //     transform.position = position;
+        // }
 
         public void Follow(GameObject following) =>
             _following = following.transform;

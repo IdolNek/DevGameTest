@@ -3,6 +3,6 @@
     public static class AssetPath
     {
         public const string UIRootPath = "UI/UIRoot";
-        public const string HUDPath = "";
+        public const string HUDPath = "UI/Hud";
     }
 }

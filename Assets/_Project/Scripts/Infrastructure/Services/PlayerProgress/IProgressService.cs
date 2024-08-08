@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace Assets.Scripts.Infrastructure.Services.PlayerProgress
 {
     public interface IProgressService : IService
@@ -6,5 +8,6 @@ namespace Assets.Scripts.Infrastructure.Services.PlayerProgress
         // MoneyData Money { get; set; }
         int CurrentLevel { get; }
         int CurrrentScore { get; }
+        event Action<int> ScoreChanged;
     }
 }
