@@ -13,7 +13,7 @@ namespace Assets.Scripts.Infrastructure.Services.StaticData
         private const string staticDataEnemies = "GameOption/EnemyData";
         private const string staticDataLevels = "GameOption/Levels";
         private const string staticDataWindows = "GameOption/Windows/WindowsData";
-        private const string staticDataPlayer = "GameOption/PlayerData/PlayerData";
+        private const string staticDataPlayer = "GameOption/Player/PlayerData";
         
         private Dictionary<EnemyTypeId, EnemyStaticData> _enemys;
         private Dictionary<EnemyTypeId, EnemySpawnStaticData> _enemysSpawns;

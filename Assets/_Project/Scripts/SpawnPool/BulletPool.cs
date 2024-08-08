@@ -16,11 +16,7 @@ namespace Assets.Scripts.SpawnPool
         }
         protected override void InitializePool()
         {
-            for (int i = 0; i < _poolCount; i++)
-            {
-                GameObject bullet = _gameFactory.CreateBullet();
-                AddToPool(bullet);
-            }
+            
         }
 
     }

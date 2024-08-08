@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Infrastructure.GameOption.EnemyData;
+﻿using _Project.Scripts.Character.Player;
+using Assets.Scripts.Infrastructure.GameOption.EnemyData;
 using Assets.Scripts.Infrastructure.GameOption.Player;
 using Assets.Scripts.Infrastructure.Services.Asset;
 using Assets.Scripts.Infrastructure.Services.Input;
@@ -43,6 +44,13 @@ namespace Assets.Scripts.Infrastructure.Factory
         public GameObject CreateHero(Vector3 at)
         {
             PlayerStaticData playerData = _staticData.PlayerConfig;
+            _player = Object.Instantiate(playerData.PlayerPrefab, at, Quaternion.identity);
+            PlayerMovement playerMovement = _player.GetComponent<PlayerMovement>();
+            playerMovement.Construct(_inputService);
+            playerMovement.Initialize(playerData.MoveSpeed);
+            PlayerAttack playerAttack = _player.GetComponent<PlayerAttack>();
+            playerAttack.Construct(_inputService);
+            playerAttack.Initialize(playerData.RotationSpeed);
             return _player;
         }
         public void ResetPlayer()
@@ -76,12 +84,7 @@ namespace Assets.Scripts.Infrastructure.Factory
             return enemy;
         }        
 
-        public GameObject CreateBullet()
-        {
-            PlayerStaticData playerData = _staticData.PlayerConfig;
-            GameObject bullet = Object.Instantiate(playerData.BulletPrefab);
-            return bullet;
-        }
+        
 
         // public GameObject CreateMoney(Vector3 position)
         // {
