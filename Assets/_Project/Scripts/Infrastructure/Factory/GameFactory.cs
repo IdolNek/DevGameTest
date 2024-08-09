@@ -67,16 +67,9 @@ namespace Assets.Scripts.Infrastructure.Factory
             return hud;
         }
 
-        public void CreateSpawner(EnemySpawnStaticData enemySpawnerStaticData)
-        {
-            _spawner = Object.Instantiate(enemySpawnerStaticData.SpawnPrefab).GetComponent<EnemySpawner>();
-            _spawner.Construct(this, enemySpawnerStaticData);
-            _spawner.Initialize();
-        }
-
         public GameObject CreateEnemy(EnemyTypeId enemyTypeId)
         {
-            EnemyStaticData enemydata = _staticData.ForEnemy(enemyTypeId);
+            EnemyStaticData enemydata = _staticData.GetEnemy(enemyTypeId);
             string sceneKey = SceneManager.GetActiveScene().name;
             GameObject enemy = Object.Instantiate(enemydata.EnemyPrefab);
 

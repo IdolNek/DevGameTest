@@ -14,9 +14,8 @@ namespace Assets.Scripts.Infrastructure.Services.StaticData
         Dictionary<ZoneType, ZoneData> ZoneConfigs { get; }
 
         void LoadStaticData();
-        EnemyStaticData ForEnemy(EnemyTypeId typeId);
+        EnemyStaticData GetEnemy(EnemyTypeId typeId);
         LevelStaticData GetLevel(int levelIndex);
         WindowConfig GetWindow(WindowsId chooseAbility);
-        EnemySpawnStaticData ForSpawn(EnemyTypeId typeId);
     }
 }

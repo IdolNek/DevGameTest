@@ -2,6 +2,8 @@
 {
     public enum EnemyTypeId
     {
-        Enemy,
+        Private,
+        Quick,
+        Armoured,
     }
 }

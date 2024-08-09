@@ -10,18 +10,18 @@ namespace Assets.Scripts.SpawnPool
         private float _currentTimeBetweenSpawn;
         
 
-        public void Initialize()
-        {
-            _countEnemyToSpawn = _enemySpawnStaticData.EnemyInOneWave;
-            _timeBetweenSpawn = _enemySpawnStaticData.TimeBetweenSpawn;
-        }
-        private void Update()
-        {
-            if (_enemySpawnStaticData == null) return;
-            _currentTimeBetweenSpawn += Time.deltaTime;
-            if (_currentTimeBetweenSpawn < _timeBetweenSpawn) return;
-            SpawnWave();
-        }
+        // public void Initialize()
+        // {
+        //     _countEnemyToSpawn = _enemySpawnStaticData.EnemyInOneWave;
+        //     _timeBetweenSpawn = _enemySpawnStaticData.TimeBetweenSpawn;
+        // }
+        // private void Update()
+        // {
+        //     if (_enemySpawnStaticData == null) return;
+        //     _currentTimeBetweenSpawn += Time.deltaTime;
+        //     if (_currentTimeBetweenSpawn < _timeBetweenSpawn) return;
+        //     SpawnWave();
+        // }
 
         private void SpawnWave()
         {

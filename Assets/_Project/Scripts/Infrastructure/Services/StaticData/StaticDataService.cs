@@ -18,7 +18,6 @@ namespace Assets.Scripts.Infrastructure.Services.StaticData
         private const string staticDataDangerZones = "GameOption/DangerZone";
         
         private Dictionary<EnemyTypeId, EnemyStaticData> _enemys;
-        private Dictionary<EnemyTypeId, EnemySpawnStaticData> _enemysSpawns;
         private Dictionary<int, LevelStaticData> _levels;
         private Dictionary<WindowsId, WindowConfig> _windowConfigs;
         private PlayerStaticData _playerConfig;
@@ -31,8 +30,6 @@ namespace Assets.Scripts.Infrastructure.Services.StaticData
         public void LoadStaticData()
         {
             _enemys = Resources.LoadAll<EnemyStaticData>(staticDataEnemies)
-                .ToDictionary(x => x.EnemyTypeId, x => x);
-            _enemysSpawns = Resources.LoadAll<EnemySpawnStaticData>(staticDataEnemies)
                 .ToDictionary(x => x.EnemyTypeId, x => x);
             _levels = Resources
                 .LoadAll<LevelStaticData>(staticDataLevels)
@@ -47,12 +44,8 @@ namespace Assets.Scripts.Infrastructure.Services.StaticData
             _playerConfig = Resources.Load<PlayerStaticData>(staticDataPlayer);
         }
 
-        public EnemyStaticData ForEnemy(EnemyTypeId typeId) =>
+        public EnemyStaticData GetEnemy(EnemyTypeId typeId) =>
             _enemys.TryGetValue(typeId, out EnemyStaticData staticData)
-                ? staticData
-                : null;
-        public EnemySpawnStaticData ForSpawn(EnemyTypeId typeId) =>
-            _enemysSpawns.TryGetValue(typeId, out EnemySpawnStaticData staticData)
                 ? staticData
                 : null;
 
