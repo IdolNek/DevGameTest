@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 1141861243941768581}
   - component: {fileID: 4245662828488810183}
   - component: {fileID: 2669627902274114603}
+  - component: {fileID: -3493042036263339412}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -119,6 +120,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotationSpeed: 180
+--- !u!114 &-3493042036263339412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6032778076122235369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e07064dd9d5e4865ba50081fd247c7b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  safeZonePrefab: {fileID: 632803366781640465, guid: 1adbb2eaf368c8a4d972e12f9ea0f8c7, type: 3}
+  dangerZonePrefab: {fileID: 5320129566718286011, guid: 7da14c0f4df73e64ea553d172b9596f0, type: 3}
+  mapWidth: 40
+  mapHeight: 30
+  minDistanceBetweenZones: 3
 --- !u!1 &6537105098746180013
 GameObject:
   m_ObjectHideFlags: 0

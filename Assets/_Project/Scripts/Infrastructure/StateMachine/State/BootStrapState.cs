@@ -48,8 +48,13 @@ namespace _Project.Scripts.Infrastructure.StateMachine.State
             RegisterProgressService();
             RegisterUiFactory();
             RegisterGameFactory();
+            RegisterDangerZoneGenerator();
         }
 
+        private void RegisterDangerZoneGenerator()
+        {
+            
+        }
 
 
         private void RegisterGameFactory() =>

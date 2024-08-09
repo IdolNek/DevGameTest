@@ -2,6 +2,7 @@
 using Assets.Scripts.Infrastructure.GameOption.EnemyData;
 using Assets.Scripts.Infrastructure.GameOption.Player;
 using Assets.Scripts.Infrastructure.Services.Asset;
+using Assets.Scripts.Infrastructure.Services.DangerZone;
 using Assets.Scripts.Infrastructure.Services.Input;
 using Assets.Scripts.Infrastructure.Services.PlayerProgress;
 using Assets.Scripts.Infrastructure.Services.StaticData;
@@ -51,6 +52,8 @@ namespace Assets.Scripts.Infrastructure.Factory
             PlayerAttack playerAttack = _player.GetComponent<PlayerAttack>();
             playerAttack.Construct(_inputService);
             playerAttack.Initialize(playerData.RotationSpeed);
+            var dangerZone = _player.GetComponent<DangerZoneGenerator>();
+            dangerZone.Initialize();
             return _player;
         }
         public void ResetPlayer()
