@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c4087ff16f142c46ab2dbf29b89334c, type: 3}
-  m_Name: LevelData
+  m_Script: {fileID: 11500000, guid: 4d020703b87b4469bad97c56b0db324b, type: 3}
+  m_Name: SlowdownZone
   m_EditorClassIdentifier: 
-  LevelNumber: 0
-  LevelKey: GameScene
-  StartPlayerPoint: {x: 0, y: 0.5, z: 0}
-  MapWidth: 40
-  MapHeight: 30
+  ZoneType: 0
+  ZoneData:
+    count: 3
+    radius: 2
+    prefab: {fileID: 632803366781640465, guid: 1adbb2eaf368c8a4d972e12f9ea0f8c7, type: 3}

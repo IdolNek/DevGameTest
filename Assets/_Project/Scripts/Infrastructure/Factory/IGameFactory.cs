@@ -11,5 +11,6 @@ namespace Assets.Scripts.Infrastructure.Factory
         GameObject CreateHero(Vector3 at);
         GameObject CreateHud();
         void ResetPlayer();
+        void CreateDangerZone();
     }
 }

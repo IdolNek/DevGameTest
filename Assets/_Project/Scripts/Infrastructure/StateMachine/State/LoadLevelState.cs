@@ -47,6 +47,7 @@ namespace _Project.Scripts.Infrastructure.StateMachine.State
             _gameFactory.CreateHud();
             CameraFollow(hero);
             _uiFactory.CreateUIRoot();
+            _gameFactory.CreateDangerZone();
             _stateMachine.Enter<GameLoopState>();
         }
 

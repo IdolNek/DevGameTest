@@ -1,8 +1,7 @@
 namespace Assets.Scripts.Infrastructure.Services.DangerZone
 {
-    public enum ZoneType
+    public interface IDangerZoneGenerator
     {
-        SaveZone,
-        DangerZone
+        void GenerateZones();
     }
 }

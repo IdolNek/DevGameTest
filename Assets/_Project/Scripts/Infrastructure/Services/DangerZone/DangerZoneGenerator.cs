@@ -1,40 +1,36 @@
 using System.Collections.Generic;
+using _Project.Scripts.Infrastructure.GameOption.DangerZone;
+using Assets.Scripts.Infrastructure.Services.PlayerProgress;
+using Assets.Scripts.Infrastructure.Services.StaticData;
 using UnityEngine;
 
 namespace Assets.Scripts.Infrastructure.Services.DangerZone
 {
-    public class DangerZoneGenerator : MonoBehaviour
+    public class DangerZoneGenerator : IDangerZoneGenerator
     {
-        // Enum для типов зон
-        public GameObject safeZonePrefab;
-        public GameObject dangerZonePrefab;
-        // Структура для хранения данных о зонах
+        private readonly IStaticDataService _staticDataService;
+        private readonly IProgressService _progressService;
 
-        // Словарь для хранения данных о зонах
-        public Dictionary<ZoneType, ZoneData> zoneDictionary = new Dictionary<ZoneType, ZoneData>();
+        private Dictionary<ZoneType, ZoneData> _zoneDictionary;
 
-        // Размеры карты
-        public float mapWidth = 30f;
-        public float mapHeight = 40f;
-        public float minDistanceBetweenZones = 3f; // Минимальное расстояние между краями зон
+        private float _mapWidth;
+        private float _mapHeight;
+        private float _minDistanceBetweenZones = 3f;
 
-        private List<Vector2> spawnedZones = new List<Vector2>(); // Список центров уже сгенерированных зон
+        private List<Vector2> spawnedZones = new List<Vector2>();
 
-        private void Awake()
+        public DangerZoneGenerator(IStaticDataService staticDataService, IProgressService progressService)
         {
-            // Инициализация данных зон
-            zoneDictionary.Add(ZoneType.SaveZone, new ZoneData { count = 3, radius = 3f, prefab = safeZonePrefab });
-            zoneDictionary.Add(ZoneType.DangerZone, new ZoneData { count = 2, radius = 1f, prefab = dangerZonePrefab });
+            _staticDataService = staticDataService;
+            _progressService = progressService;
+            _zoneDictionary = _staticDataService.ZoneConfigs;
+            _mapWidth = staticDataService.GetLevel(_progressService.CurrentLevel).MapWidth;
+            _mapHeight = staticDataService.GetLevel(_progressService.CurrentLevel).MapHeight;
         }
 
-         public void Initialize()
+        public void GenerateZones()
         {
-            GenerateZones();
-        }
-
-        private void GenerateZones()
-        {
-            foreach (var zoneEntry in zoneDictionary)
+            foreach (var zoneEntry in _zoneDictionary)
             {
                 ZoneData zoneData = zoneEntry.Value;
                 for (int i = 0; i < zoneData.count; i++)
@@ -44,7 +40,7 @@ namespace Assets.Scripts.Infrastructure.Services.DangerZone
                     if (zonePosition != Vector2.zero)
                     {
                         // Создаем зону на карте
-                        Instantiate(zoneData.prefab, new Vector3(zonePosition.x, 0, zonePosition.y),
+                        GameObject.Instantiate(zoneData.prefab, new Vector3(zonePosition.x, 0, zonePosition.y),
                             Quaternion.identity);
                         spawnedZones.Add(zonePosition);
                     }
@@ -62,10 +58,10 @@ namespace Assets.Scripts.Infrastructure.Services.DangerZone
             for (int attempt = 0; attempt < maxAttempts; attempt++)
             {
                 // Генерируем случайную позицию в пределах карты, с учетом расстояния до края карты
-                float x = Random.Range(-mapWidth / 2f + radius + minDistanceBetweenZones,
-                    mapWidth / 2f - radius - minDistanceBetweenZones);
-                float z = Random.Range(-mapHeight / 2f + radius + minDistanceBetweenZones,
-                    mapHeight / 2f - radius - minDistanceBetweenZones);
+                float x = Random.Range(-_mapWidth / 2f + radius + _minDistanceBetweenZones,
+                    _mapWidth / 2f - radius - _minDistanceBetweenZones);
+                float z = Random.Range(-_mapHeight / 2f + radius + _minDistanceBetweenZones,
+                    _mapHeight / 2f - radius - _minDistanceBetweenZones);
                 Vector2 newPosition = new Vector2(x, z);
 
                 // Проверяем, не пересекается ли эта зона с другими
@@ -87,7 +83,7 @@ namespace Assets.Scripts.Infrastructure.Services.DangerZone
                 float distance = Vector2.Distance(newPosition, existingPosition);
 
                 // Если расстояние меньше необходимого, позиция считается недействительной
-                if (distance < radius * 2 + minDistanceBetweenZones)
+                if (distance < radius * 2 + _minDistanceBetweenZones)
                 {
                     return false;
                 }

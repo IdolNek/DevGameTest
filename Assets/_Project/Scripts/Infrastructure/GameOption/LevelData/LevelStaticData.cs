@@ -8,5 +8,7 @@ namespace Assets.Scripts.Infrastructure.GameOption.LevelData
         public int LevelNumber;
         public string LevelKey;
         public Vector3 StartPlayerPoint;
+        public float MapWidth;
+        public float MapHeight;
     }
 }

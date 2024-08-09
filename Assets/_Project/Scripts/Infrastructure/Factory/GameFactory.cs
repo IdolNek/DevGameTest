@@ -17,7 +17,6 @@ namespace Assets.Scripts.Infrastructure.Factory
 {
     public class GameFactory : IGameFactory
     {
-
         private readonly IAssetService _asset;
         private readonly IStaticDataService _staticData;
         private readonly IProgressService _progress;
@@ -31,7 +30,8 @@ namespace Assets.Scripts.Infrastructure.Factory
         public EnemySpawner Spawner => _spawner;
 
         public GameFactory(IAssetService asset, IStaticDataService staticData,
-            IProgressService progress, IInputService inputService, IUIFactory uIFactory, GameStateMachine gameStateMachine)
+            IProgressService progress, IInputService inputService, IUIFactory uIFactory,
+            GameStateMachine gameStateMachine)
         {
             _asset = asset;
             _staticData = staticData;
@@ -41,24 +41,21 @@ namespace Assets.Scripts.Infrastructure.Factory
             _gameStateMachine = gameStateMachine;
         }
 
-
         public GameObject CreateHero(Vector3 at)
         {
             PlayerStaticData playerData = _staticData.PlayerConfig;
-            _player = Object.Instantiate(playerData.PlayerPrefab, at, Quaternion.identity);
+            _player = GameObject.Instantiate(playerData.PlayerPrefab, at, Quaternion.identity);
             PlayerMovement playerMovement = _player.GetComponent<PlayerMovement>();
             playerMovement.Construct(_inputService);
             playerMovement.Initialize(playerData.MoveSpeed);
             PlayerAttack playerAttack = _player.GetComponent<PlayerAttack>();
             playerAttack.Construct(_inputService);
             playerAttack.Initialize(playerData.RotationSpeed);
-            var dangerZone = _player.GetComponent<DangerZoneGenerator>();
-            dangerZone.Initialize();
             return _player;
         }
+
         public void ResetPlayer()
         {
-
         }
 
         public GameObject CreateHud()
@@ -75,7 +72,6 @@ namespace Assets.Scripts.Infrastructure.Factory
             _spawner = Object.Instantiate(enemySpawnerStaticData.SpawnPrefab).GetComponent<EnemySpawner>();
             _spawner.Construct(this, enemySpawnerStaticData);
             _spawner.Initialize();
-
         }
 
         public GameObject CreateEnemy(EnemyTypeId enemyTypeId)
@@ -83,16 +79,14 @@ namespace Assets.Scripts.Infrastructure.Factory
             EnemyStaticData enemydata = _staticData.ForEnemy(enemyTypeId);
             string sceneKey = SceneManager.GetActiveScene().name;
             GameObject enemy = Object.Instantiate(enemydata.EnemyPrefab);
-            
+
             return enemy;
-        }        
+        }
 
-        
-
-        // public GameObject CreateMoney(Vector3 position)
-        // {
-        //     var money = _asset.Instantiate(AssetPath.Money, position);
-        //     return money;
-        // }        
+        public void CreateDangerZone()
+        {
+            IDangerZoneGenerator dangerZoneGenerator = new DangerZoneGenerator(_staticData, _progress);
+            dangerZoneGenerator.GenerateZones();
+        }
     }
 }

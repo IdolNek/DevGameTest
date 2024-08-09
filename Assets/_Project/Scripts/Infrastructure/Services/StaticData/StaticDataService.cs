@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using _Project.Scripts.Infrastructure.GameOption.DangerZone;
 using Assets.Scripts.Infrastructure.GameOption.EnemyData;
 using Assets.Scripts.Infrastructure.GameOption.LevelData;
 using Assets.Scripts.Infrastructure.GameOption.Player;
@@ -14,14 +15,18 @@ namespace Assets.Scripts.Infrastructure.Services.StaticData
         private const string staticDataLevels = "GameOption/Levels";
         private const string staticDataWindows = "GameOption/Windows/WindowsData";
         private const string staticDataPlayer = "GameOption/Player/PlayerData";
+        private const string staticDataDangerZones = "GameOption/DangerZone";
         
         private Dictionary<EnemyTypeId, EnemyStaticData> _enemys;
         private Dictionary<EnemyTypeId, EnemySpawnStaticData> _enemysSpawns;
         private Dictionary<int, LevelStaticData> _levels;
         private Dictionary<WindowsId, WindowConfig> _windowConfigs;
         private PlayerStaticData _playerConfig;
+        private Dictionary<ZoneType, ZoneData> _zoneConfigs;
 
-        public PlayerStaticData PlayerConfig => _playerConfig; 
+        public PlayerStaticData PlayerConfig => _playerConfig;
+
+        public Dictionary<ZoneType, ZoneData> ZoneConfigs => _zoneConfigs;
 
         public void LoadStaticData()
         {
@@ -32,6 +37,9 @@ namespace Assets.Scripts.Infrastructure.Services.StaticData
             _levels = Resources
                 .LoadAll<LevelStaticData>(staticDataLevels)
                 .ToDictionary(x => x.LevelNumber, x => x);
+            _zoneConfigs = Resources
+                .LoadAll<ZoneStaticData>(staticDataDangerZones)
+                .ToDictionary(x => x.ZoneType, x => x.ZoneData);
             _windowConfigs = Resources
                 .Load<WindowsStaticData>(staticDataWindows)
                 .Configs
